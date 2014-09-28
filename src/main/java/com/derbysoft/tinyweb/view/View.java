@@ -1,4 +1,4 @@
-package com.derbysoft.tinyweb;
+package com.derbysoft.tinyweb.view;
 
 import java.util.List;
 import java.util.Map;

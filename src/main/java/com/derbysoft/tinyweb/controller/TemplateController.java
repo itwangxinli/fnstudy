@@ -1,4 +1,9 @@
-package com.derbysoft.tinyweb;
+package com.derbysoft.tinyweb.controller;
+
+import com.derbysoft.tinyweb.base.HttpRequest;
+import com.derbysoft.tinyweb.base.HttpResponse;
+import com.derbysoft.tinyweb.view.RenderException;
+import com.derbysoft.tinyweb.view.View;
 
 import java.util.List;
 import java.util.Map;
@@ -25,10 +30,12 @@ public abstract class TemplateController implements Controller {
         } catch (RenderException re) {
             responseBody = "Exception While rending";
             responseCode = 500;
-        }catch (Exception e){
-            responseCode=500;
+        } catch (Exception e) {
+            responseCode = 500;
         }
-        return null;
+        return HttpResponse.Builder.newBuilder()
+                .body(responseBody).
+                        responseCode(responseCode).build();
     }
 
     protected abstract Map<String, List<String>> doRequest(HttpRequest request);

@@ -1,4 +1,4 @@
-package com.derbysoft.tinyweb;
+package com.derbysoft.tinyweb.controller;
 
 /**
  * Created by xinliwang on 14-9-28.

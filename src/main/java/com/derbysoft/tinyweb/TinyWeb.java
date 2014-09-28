@@ -1,5 +1,10 @@
 package com.derbysoft.tinyweb;
 
+import com.derbysoft.tinyweb.base.HttpRequest;
+import com.derbysoft.tinyweb.base.HttpResponse;
+import com.derbysoft.tinyweb.controller.Controller;
+import com.derbysoft.tinyweb.filter.Filter;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +13,9 @@ import java.util.Map;
  */
 public class TinyWeb {
     private final Map<String, Controller> controllers;
-    private final List<Filter> filters;
+    private final List<? extends Filter> filters;
 
-    public TinyWeb(Map<String,Controller> controllers,List<Filter> filters){
+    public TinyWeb(Map<String,Controller> controllers,List<? extends Filter> filters){
         this.controllers=controllers;
         this.filters=filters;
     }
