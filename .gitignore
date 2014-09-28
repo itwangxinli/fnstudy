@@ -1,0 +1,7 @@
+# Created by .gitignore support plugin (hsz.mobi)
+target/
+out/*
+.idea/*
+*.ipr
+*.iws
+*.iml
