@@ -1,7 +1,8 @@
 package com.derbysoft.fn.tinweb.controller
 
+import com.derbysoft.fn.tinweb.base.{HttpResponse, HttpRequest}
 import com.derbysoft.fn.tinweb.view.View
-import com.derbysoft.tinyweb.base.{HttpRequest, HttpResponse}
+
 import com.derbysoft.tinyweb.controller.ControllerException
 import com.derbysoft.tinyweb.view.RenderException
 
@@ -24,15 +25,16 @@ class FunctionController(view: View, doRequest: (HttpRequest) => Map[String, Lis
     } catch {
       case e: RenderException =>
         responseCode = 500
-        responseBody = "Excpetion while rending"
+        responseBody = "Exception while rending"
       case e: ControllerException =>
         responseCode = e.getCauseCode
-        responseBody = "Error whiel create controller"
+        responseBody = "Error while create controller"
+        HttpResponse(responseCode=e.getCauseCode,responseBody="")
       case e:Exception=>
         responseCode=500
+        HttpResponse("",500)
     }
-    HttpResponse.Builder.newBuilder().
-      body(responseBody).responseCode(responseCode).build()
+
   }
 
 
