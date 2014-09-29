@@ -1,8 +1,7 @@
 package com.derbysoft.fn.tinweb.controller
 
-import com.derbysoft.fn.tinweb.base.{HttpResponse, HttpRequest}
+import com.derbysoft.fn.tinweb.base.{HttpRequest, HttpResponse}
 import com.derbysoft.fn.tinweb.view.View
-
 import com.derbysoft.tinyweb.controller.ControllerException
 import com.derbysoft.tinyweb.view.RenderException
 
@@ -13,26 +12,20 @@ trait Controller {
   def handleRequest(request: HttpRequest): HttpResponse
 }
 
-class FunctionController(view: View, doRequest: (HttpRequest) => Map[String, List[String]])
+class FunctionController(view: View, doRequest: (HttpRequest)
+  => Map[String, List[String]])
   extends Controller {
   override def handleRequest(request: HttpRequest): HttpResponse = {
-    var responseCode = 200
-    var responseBody = ""
     try {
-
       val model: Map[String, List[String]] = doRequest(request)
-     responseBody= view.render(model)
+      HttpResponse(view.render(model), 200);
     } catch {
       case e: RenderException =>
-        responseCode = 500
-        responseBody = "Exception while rending"
+        HttpResponse("Exception while rending", 500);
       case e: ControllerException =>
-        responseCode = e.getCauseCode
-        responseBody = "Error while create controller"
-        HttpResponse(responseCode=e.getCauseCode,responseBody="")
-      case e:Exception=>
-        responseCode=500
-        HttpResponse("",500)
+        HttpResponse("Error while create controller", 500)
+      case e: Exception =>
+        HttpResponse("", 500)
     }
 
   }
